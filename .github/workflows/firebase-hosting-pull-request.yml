@@ -12,20 +12,19 @@ permissions:
 
 jobs:
   build_and_deploy:
-    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # or use macos-latest if needed
 
     steps:
       # Checkout the repository code
       - uses: actions/checkout@v4
 
-      # Set up Flutter SDK (Install Flutter)
+      # Install Flutter SDK
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'  # Set to the Flutter version your project uses (e.g., 'stable', '3.0.0')
+          flutter-version: 'stable'  # Use the Flutter version you want, e.g., stable, 3.0.0, etc.
 
-      # Install dependencies for Flutter project
+      # Install dependencies (make sure all Flutter dependencies are installed)
       - name: Install dependencies
         run: flutter pub get
 
