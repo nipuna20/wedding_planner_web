@@ -1,40 +1,32 @@
-name: Deploy to Firebase Hosting on PR
+name: Flutter Build and Deploy
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
-permissions:
-  checks: write
-  contents: read
-  pull-requests: write
-
 jobs:
   build_and_deploy:
-    runs-on: ubuntu-latest  # or use macos-latest if needed
+    runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository code
-      - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      # Install Flutter SDK
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: 'stable'  # Use the Flutter version you want, e.g., stable, 3.0.0, etc.
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.7.0' # Replace with your desired Flutter version
 
-      # Install dependencies (make sure all Flutter dependencies are installed)
-      - name: Install dependencies
-        run: flutter pub get
+    - name: Install dependencies
+      run: flutter pub get
 
-      # Run flutter build web to generate the static site
-      - name: Build Flutter web app
-        run: flutter build web
+    - name: Build Flutter web app
+      run: flutter build web
 
-      # Deploy to Firebase Hosting
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BEDA_54518 }}
-          projectId: beda-54518
+    - name: Deploy to Firebase Hosting
+      uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: ${{ secrets.GITHUB_TOKEN }}
+        firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
