@@ -16,10 +16,13 @@ jobs:
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.7.0'  # Ensure Flutter 3.7.0 or newer is used
+        flutter-version: '3.7.0'
 
     - name: Install dependencies
       run: flutter pub get
+
+    - name: Verify Flutter and Dart version  # This step will display versions
+      run: flutter --version  # It will print the version of Flutter and Dart
 
     - name: Build Flutter web app
       run: flutter build web
