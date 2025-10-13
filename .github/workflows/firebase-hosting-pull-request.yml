@@ -19,14 +19,19 @@ jobs:
       # Checkout the repository code
       - uses: actions/checkout@v4
 
-      # Install Flutter SDK (Important step)
+      # Set up Flutter SDK (Install Flutter)
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.0'  # Set this to the Flutter version you want to use
+          flutter-version: 'stable'  # Set to the Flutter version your project uses (e.g., 'stable', '3.0.0')
+
+      # Install dependencies for Flutter project
+      - name: Install dependencies
+        run: flutter pub get
 
       # Run flutter build web to generate the static site
-      - run: flutter build web
+      - name: Build Flutter web app
+        run: flutter build web
 
       # Deploy to Firebase Hosting
       - uses: FirebaseExtended/action-hosting-deploy@v0
