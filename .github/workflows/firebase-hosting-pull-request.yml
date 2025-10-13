@@ -26,6 +26,7 @@ jobs:
         with:
           flutter-version: '3.0.0'  # Specify the Flutter version you are using
 
+
       # Run Flutter build web to generate the static site
       - run: flutter build web
 
