@@ -1,5 +1,5 @@
 library dataconnect_generated;
-import 'package:firebase_data_connect/firebase_data_connect.dart';
+import 'package:firebase_data_connect/firebase_data_connect.dart' as fdc;
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 
@@ -75,18 +75,15 @@ class ExampleConnector {
   }
   
 
-  static ConnectorConfig connectorConfig = ConnectorConfig(
+  static fdc.ConnectorConfig connectorConfig = fdc.ConnectorConfig(
     'us-east4',
     'example',
     'weddingplannerweb',
   );
 
   ExampleConnector({required this.dataConnect});
-  static ExampleConnector get instance {
-    return ExampleConnector(
-        dataConnect: FirebaseDataConnect.instanceFor(
-            connectorConfig: connectorConfig,
-            sdkType: CallerSDKType.generated));
+  static ExampleConnector instanceWith(FirebaseDataConnect dataConnect) {
+    return ExampleConnector(dataConnect: dataConnect);
   }
 
   FirebaseDataConnect dataConnect;

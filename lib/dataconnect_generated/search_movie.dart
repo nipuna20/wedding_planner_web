@@ -1,5 +1,38 @@
 part of 'example.dart';
 
+enum OptionalState { unset, set }
+
+class Optional<T> {
+  final T Function(dynamic) _fromJson;
+  final dynamic Function(T?) _toJson;
+  OptionalState state = OptionalState.unset;
+  T? _value;
+
+  Optional.optional(this._fromJson, this._toJson);
+
+  T? get value => _value;
+  set value(T? v) {
+    _value = v;
+    state = OptionalState.set;
+  }
+
+  dynamic toJson() {
+    if (state != OptionalState.set) return null;
+    return _toJson(_value);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other.runtimeType != runtimeType) return false;
+    final Optional<T> o = other as Optional<T>;
+    return state == o.state && _value == o._value;
+  }
+
+  @override
+  int get hashCode => Object.hash(state, _value);
+}
+
 class SearchMovieVariablesBuilder {
   Optional<String> _titleInput = Optional.optional(nativeFromJson, nativeToJson);
   Optional<String> _genre = Optional.optional(nativeFromJson, nativeToJson);
@@ -17,7 +50,7 @@ class SearchMovieVariablesBuilder {
   SearchMovieVariablesBuilder(this._dataConnect, );
   Deserializer<SearchMovieData> dataDeserializer = (dynamic json)  => SearchMovieData.fromJson(jsonDecode(json));
   Serializer<SearchMovieVariables> varsSerializer = (SearchMovieVariables vars) => jsonEncode(vars.toJson());
-  Future<QueryResult<SearchMovieData, SearchMovieVariables>> execute() {
+  Future<dynamic> execute() {
     return ref().execute();
   }
 

@@ -1,12 +1,14 @@
 part of 'example.dart';
 
+final dynamic emptySerializer = (dynamic _) => null;
+
 class ListMoviesVariablesBuilder {
   
   final FirebaseDataConnect _dataConnect;
   ListMoviesVariablesBuilder(this._dataConnect, );
   Deserializer<ListMoviesData> dataDeserializer = (dynamic json)  => ListMoviesData.fromJson(jsonDecode(json));
   
-  Future<QueryResult<ListMoviesData, void>> execute() {
+  Future<dynamic> execute() {
     return ref().execute();
   }
 

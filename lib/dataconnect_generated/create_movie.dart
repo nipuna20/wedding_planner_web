@@ -1,5 +1,33 @@
 part of 'example.dart';
 
+/// Minimal stub to satisfy generated code references; replace or remove if you have a real implementation.
+typedef Deserializer<T> = T Function(dynamic json);
+typedef Serializer<T> = dynamic Function(T value);
+
+class OperationResult<T, V> {
+  final T? data;
+  final Object? error;
+  OperationResult({this.data, this.error});
+}
+
+class MutationRef<T, V> {
+  final String name;
+  final Deserializer<T> dataDeserializer;
+  final Serializer<V> varsSerializer;
+  final V vars;
+
+  MutationRef(this.name, this.dataDeserializer, this.varsSerializer, this.vars);
+
+  Future<OperationResult<T, V>> execute() async {
+    // Placeholder implementation; replace with real network call.
+    throw UnimplementedError('MutationRef.execute is not implemented');
+  }
+}
+
+abstract class FirebaseDataConnect {
+  MutationRef<T, V> mutation<T, V>(String name, Deserializer<T> dataDeserializer, Serializer<V> varsSerializer, V vars);
+}
+
 class CreateMovieVariablesBuilder {
   String title;
   String genre;

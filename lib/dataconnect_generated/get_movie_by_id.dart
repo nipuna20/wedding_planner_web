@@ -1,5 +1,32 @@
 part of 'example.dart';
 
+/// Minimal placeholder for the generated code; replace with the real QueryRef implementation
+/// from your data layer if available.
+class QueryRef<TData, TVars> {
+  final Future<dynamic> Function() _execute;
+  QueryRef(this._execute);
+  Future<dynamic> execute() => _execute();
+}
+
+/// Provides a minimal compile-time implementation of `query` for FirebaseDataConnect.
+/// Replace this extension with your actual data-layer implementation that performs
+/// network calls and deserialization.
+extension FirebaseDataConnectQueryExtension on FirebaseDataConnect {
+  QueryRef<TData, TVars> query<TData, TVars>(
+    String name,
+    Deserializer<TData> dataDeserializer,
+    Serializer<TVars> varsSerializer,
+    TVars vars,
+  ) {
+    // This placeholder ensures the generated code compiles; update to perform
+    // the real request and return a QueryRef that executes the request.
+    return QueryRef<TData, TVars>(() async {
+      throw UnimplementedError(
+          'FirebaseDataConnect.query is not implemented. Provide an implementation that calls your backend and returns the deserialized data.');
+    });
+  }
+}
+
 class GetMovieByIdVariablesBuilder {
   String id;
 
@@ -7,7 +34,7 @@ class GetMovieByIdVariablesBuilder {
   GetMovieByIdVariablesBuilder(this._dataConnect, {required  this.id,});
   Deserializer<GetMovieByIdData> dataDeserializer = (dynamic json)  => GetMovieByIdData.fromJson(jsonDecode(json));
   Serializer<GetMovieByIdVariables> varsSerializer = (GetMovieByIdVariables vars) => jsonEncode(vars.toJson());
-  Future<QueryResult<GetMovieByIdData, GetMovieByIdVariables>> execute() {
+  Future<dynamic> execute() {
     return ref().execute();
   }
 

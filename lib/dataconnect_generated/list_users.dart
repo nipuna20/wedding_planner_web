@@ -6,7 +6,7 @@ class ListUsersVariablesBuilder {
   ListUsersVariablesBuilder(this._dataConnect, );
   Deserializer<ListUsersData> dataDeserializer = (dynamic json)  => ListUsersData.fromJson(jsonDecode(json));
   
-  Future<QueryResult<ListUsersData, void>> execute() {
+  Future<dynamic> execute() {
     return ref().execute();
   }
 

@@ -1,20 +1,32 @@
 part of 'example.dart';
 
+/// Helper conversion functions used by the generated code.
+/// Adjust implementations if you need special parsing for types like DateTime or enums.
+T nativeFromJson<T>(dynamic value) {
+  return value as T;
+}
+
+dynamic nativeToJson<T>(T value) {
+  return value;
+}
+
+// Deserializer<T> and Serializer<T> are defined in the main library file to avoid duplicate declarations across part files.
+
 class AddReviewVariablesBuilder {
   String movieId;
   int rating;
   String reviewText;
 
-  final FirebaseDataConnect _dataConnect;
+  final dynamic _dataConnect;
   AddReviewVariablesBuilder(this._dataConnect, {required  this.movieId,required  this.rating,required  this.reviewText,});
   Deserializer<AddReviewData> dataDeserializer = (dynamic json)  => AddReviewData.fromJson(jsonDecode(json));
   Serializer<AddReviewVariables> varsSerializer = (AddReviewVariables vars) => jsonEncode(vars.toJson());
-  Future<OperationResult<AddReviewData, AddReviewVariables>> execute() {
+  Future<dynamic> execute() {
     return ref().execute();
   }
 
-  MutationRef<AddReviewData, AddReviewVariables> ref() {
-    AddReviewVariables vars= AddReviewVariables(movieId: movieId,rating: rating,reviewText: reviewText,);
+  dynamic ref() {
+    AddReviewVariables vars = AddReviewVariables(movieId: movieId, rating: rating, reviewText: reviewText,);
     return _dataConnect.mutation("AddReview", dataDeserializer, varsSerializer, vars);
   }
 }
