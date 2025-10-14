@@ -16,14 +16,11 @@ jobs:
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.22.0'  # Updated to a version with Dart 3.22.0
+        flutter-version: '3.32.0'  # Matches your local FVM setup with Dart 3.8.0
         cache: true
 
     - name: Verify Flutter and Dart version
-      run: |
-        flutter --version
-        echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-        echo "/opt/hostedtoolcache/flutter/stable-3.22.0-x64/bin" >> $GITHUB_PATH  # Update path to match new version
+      run: flutter --version
 
     - name: Install dependencies
       run: flutter pub get
