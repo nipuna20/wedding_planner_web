@@ -17,9 +17,12 @@ jobs:
       uses: subosito/flutter-action@v2
       with:
         flutter-version: '3.7.2'  # Ensure the exact version you want
+        cache: true  # Optional: Enables caching to speed up the setup
 
-    - name: Verify Flutter and Dart version  # This step will display versions
-      run: flutter --version  # It will print the version of Flutter and Dart
+    - name: Verify Flutter and Dart version
+      run: |
+        flutter --version  # Verify the version
+        echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH  # Add Flutter tools to PATH
 
     - name: Install dependencies
       run: flutter pub get
